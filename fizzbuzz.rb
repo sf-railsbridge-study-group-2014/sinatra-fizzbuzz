@@ -1,20 +1,23 @@
 require 'minitest/autorun'
 
-def fizzbuzz(max)
-  result = []
-  1.upto(max) do |limit|
-    if limit % 3 == 0 && limit % 5 == 0
-      result.push 'fizz-buzz'
-    elsif limit % 3 == 0
-      result.push 'fizz'
-    elsif limit % 5 == 0
-      result.push 'buzz'
+class Numeric
+  def multiple_of?(num)
+    0 == self % num
+  end
+end
+
+def fizzbuzz(limit)
+  (1..limit).inject([]) do |memo, count|
+    if count.multiple_of?(3) && count.multiple_of?(5)
+      memo.push 'fizz-buzz'
+    elsif count.multiple_of?(3)
+      memo.push 'fizz'
+    elsif count.multiple_of?(5)
+      memo.push 'buzz'
     else
-      result.push limit
+      memo.push count
     end
   end
-
-  result
 end
 
 class FizzBuzzTest < MiniTest::Unit::TestCase
